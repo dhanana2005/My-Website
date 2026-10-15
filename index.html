@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f5ef">
+  <meta name="description" content="Find thoughtful events, good people, and your next favorite thing around New York City.">
+  <title>Happenstance — good things happening near you</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f4f5ef;
+      --ink: #20221d;
+      --muted: #777970;
+      --line: #dedfd6;
+      --green: #d3f36b;
+      --coral: #f2785d;
+      --white: #fff;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+    button, input, select { font: inherit; }
+    button { color: inherit; }
+    .shell { max-width: 1440px; margin: 0 auto; padding: 0 6.1%; }
+    header { height: 82px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+    .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-size: 19px; font-weight: 700; letter-spacing: -.5px; }
+    .brand-mark { display: grid; place-items: center; width: 31px; height: 31px; border-radius: 50%; background: var(--green); font-size: 17px; }
+    .nav { display: flex; align-items: center; gap: 35px; }
+    .nav a { color: #55574f; text-decoration: none; font-size: 13px; font-weight: 600; }
+    .nav a:hover { color: var(--ink); }
+    .nav .submit { background: var(--ink); color: white; padding: 12px 17px; border-radius: 3px; }
+    .nav .submit:hover { background: #41443b; }
+    .location { display: inline-flex; align-items: center; gap: 7px; border: 0; background: transparent; padding: 9px 0; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .location svg { width: 16px; height: 16px; }
+    .hero { padding: 50px 0 48px; display: grid; grid-template-columns: .85fr 1.15fr; gap: 42px; align-items: center; }
+    .eyebrow { display: flex; align-items: center; gap: 9px; color: #62645b; font-size: 10px; font-weight: 700; letter-spacing: 1.45px; text-transform: uppercase; }
+    .eyebrow i { width: 7px; height: 7px; border-radius: 50%; background: var(--coral); }
+    h1 { max-width: 480px; margin: 20px 0 16px; font-family: var(--serif); font-size: clamp(48px, 5.5vw, 76px); line-height: 1.02; font-weight: 600; letter-spacing: -1.5px; }
+    h1 em { color: #e56f54; font-weight: 600; }
+    .hero-copy { max-width: 380px; color: #6d6f66; font-size: 14px; line-height: 1.75; }
+    .hero-search { margin-top: 27px; width: min(100%, 415px); height: 51px; display: flex; align-items: center; gap: 11px; padding: 0 15px; border: 1px solid #dedfd6; background: rgba(255,255,255,.75); border-radius: 3px; }
+    .hero-search svg { flex: 0 0 auto; width: 17px; height: 17px; color: #777970; }
+    .hero-search input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--ink); font-size: 12px; }
+    .hero-search input::placeholder { color: #898b82; }
+    .hero-search:focus-within { outline: 2px solid #d3f36b; outline-offset: 2px; }
+    .hero-visual { height: 320px; position: relative; overflow: hidden; background: #d9ddd0; }
+    .hero-visual img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 52%; }
+    .hero-visual::after { content: ""; position: absolute; inset: 35% 0 0; background: linear-gradient(transparent, rgba(18,22,17,.68)); }
+    .feature-note { position: absolute; z-index: 1; bottom: 23px; left: 24px; right: 24px; color: white; display: flex; align-items: end; justify-content: space-between; gap: 16px; }
+    .feature-note small { display: block; margin-bottom: 7px; font-size: 10px; font-weight: 700; letter-spacing: 1.15px; text-transform: uppercase; }
+    .feature-note strong { font-family: var(--serif); font-size: 25px; font-weight: 600; }
+    .feature-note .date-stamp { flex: 0 0 auto; padding: 9px 11px; background: var(--green); color: var(--ink); font-size: 10px; font-weight: 700; }
+    .events-section { padding: 13px 0 76px; }
+    .section-top { display: flex; justify-content: space-between; align-items: end; gap: 24px; padding-bottom: 21px; border-bottom: 1px solid var(--line); }
+    .section-top h2 { margin: 0; font-family: var(--serif); font-size: 32px; line-height: 1.1; font-weight: 600; letter-spacing: -.4px; }
+    .section-top p { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
+    .date-tabs { display: flex; gap: 5px; padding: 4px; background: #e9eae2; border-radius: 4px; }
+    .date-tabs button { padding: 9px 13px; border: 0; background: transparent; border-radius: 3px; color: #696b62; font-size: 11px; font-weight: 600; cursor: pointer; }
+    .date-tabs button[aria-pressed="true"] { background: white; color: var(--ink); box-shadow: 0 1px 3px #20221d12; }
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 17px 0 20px; }
+    .categories { display: flex; flex-wrap: wrap; gap: 8px; }
+    .category { display: inline-flex; align-items: center; gap: 6px; padding: 8px 11px; border: 1px solid var(--line); background: transparent; border-radius: 3px; color: #62645b; font-size: 10px; font-weight: 600; cursor: pointer; transition: background .16s, border-color .16s, color .16s; }
+    .category:hover { border-color: #a8aa9e; color: var(--ink); }
+    .category[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: white; }
+    .category .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--coral); }
+    .category[data-category="Art"] .dot { background: #8aa9ed; }
+    .category[data-category="Food"] .dot { background: #e4b644; }
+    .category[data-category="Outdoors"] .dot { background: #7eb785; }
+    .sort-wrap { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 10px; white-space: nowrap; }
+    .sort-wrap select { padding: 8px 24px 8px 9px; border: 1px solid var(--line); border-radius: 3px; background: transparent; color: var(--ink); font-size: 10px; cursor: pointer; }
+    .event-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 19px; }
+    .event-card { min-width: 0; animation: rise-in .42s both; }
+    @keyframes rise-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .card-image { position: relative; aspect-ratio: 1.54; overflow: hidden; background: #e3e4dc; }
+    .card-image img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .45s cubic-bezier(.2,.7,.25,1); }
+    .event-card:hover .card-image img { transform: scale(1.035); }
+    .event-tag { position: absolute; top: 11px; left: 11px; padding: 6px 8px; background: var(--paper); color: var(--ink); font-size: 9px; font-weight: 700; letter-spacing: .45px; text-transform: uppercase; }
+    .save-button { position: absolute; top: 9px; right: 9px; display: grid; place-items: center; width: 32px; height: 32px; border: 0; border-radius: 50%; background: rgba(255,255,255,.93); cursor: pointer; }
+    .save-button svg { width: 16px; height: 16px; fill: transparent; stroke: currentColor; stroke-width: 1.7; }
+    .save-button[aria-pressed="true"] svg { fill: var(--coral); stroke: var(--coral); }
+    .card-body { padding: 13px 1px 0; }
+    .event-meta { display: flex; align-items: center; gap: 7px; color: #777970; font-size: 10px; font-weight: 600; }
+    .event-meta .separator { width: 3px; height: 3px; border-radius: 50%; background: #aaa; }
+    .event-card h3 { margin: 8px 0 7px; font-family: var(--serif); font-size: 20px; line-height: 1.22; font-weight: 600; }
+    .event-card .venue { margin: 0; color: #777970; font-size: 11px; }
+    .card-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 13px; padding-top: 11px; border-top: 1px solid var(--line); }
+    .price { font-size: 11px; font-weight: 700; }
+    .details-button { display: inline-flex; align-items: center; gap: 5px; padding: 4px 0; border: 0; background: transparent; color: #55574f; font-size: 10px; font-weight: 700; cursor: pointer; }
+    .details-button svg { width: 13px; height: 13px; transition: transform .15s; }
+    .details-button:hover svg { transform: translateX(3px); }
+    .empty-state { grid-column: 1 / -1; padding: 58px 15px; text-align: center; color: var(--muted); font-size: 13px; }
+    .empty-state strong { display: block; margin-bottom: 6px; color: var(--ink); font-family: var(--serif); font-size: 23px; }
+    footer { border-top: 1px solid var(--line); padding: 20px 0 25px; color: #777970; font-size: 10px; }
+    footer .shell { display: flex; justify-content: space-between; gap: 16px; }
+    dialog { width: min(470px, calc(100% - 32px)); padding: 0; border: 0; background: var(--paper); color: var(--ink); box-shadow: 0 18px 70px #10140f40; }
+    dialog::backdrop { background: #17191480; }
+    .dialog-image { width: 100%; height: 210px; object-fit: cover; display: block; }
+    .dialog-content { padding: 24px; }
+    .dialog-content .event-meta { margin-bottom: 9px; }
+    .dialog-content h2 { margin: 0 0 9px; font: 600 29px/1.15 var(--serif); }
+    .dialog-content p { color: #676960; font-size: 12px; line-height: 1.7; }
+    .dialog-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 20px; }
+    .dialog-actions button { padding: 11px 14px; border: 0; background: var(--green); font-size: 11px; font-weight: 700; cursor: pointer; }
+    .dialog-actions .close-dialog { padding: 10px; background: transparent; color: #62645b; }
+    .toast { position: fixed; right: 22px; bottom: 22px; z-index: 5; padding: 12px 16px; background: var(--ink); color: white; font-size: 12px; box-shadow: 0 5px 22px #20221d26; animation: rise-in .2s both; }
+    @media (max-width: 850px) {
+      .shell { padding-right: 5%; padding-left: 5%; }
+      .hero { grid-template-columns: .9fr 1.1fr; gap: 24px; padding: 38px 0; }
+      .hero-visual { height: 285px; }
+      .event-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 25px 16px; }
+      .nav { gap: 19px; }
+    }
+    @media (max-width: 600px) {
+      .shell { padding-right: 20px; padding-left: 20px; }
+      header { height: 68px; }
+      .nav { gap: 14px; }
+      .nav a:not(.submit) { display: none; }
+      .nav .submit { padding: 10px 12px; font-size: 11px; }
+      .location { font-size: 11px; }
+      .hero { grid-template-columns: 1fr; gap: 23px; padding: 34px 0 30px; }
+      h1 { max-width: 400px; margin-top: 15px; font-size: clamp(49px, 13vw, 68px); }
+      .hero-copy { max-width: 340px; font-size: 13px; }
+      .hero-search { margin-top: 19px; }
+      .hero-visual { height: 245px; }
+      .feature-note { left: 17px; right: 17px; bottom: 17px; }
+      .feature-note strong { font-size: 21px; }
+      .section-top { align-items: start; flex-direction: column; gap: 15px; }
+      .section-top h2 { font-size: 29px; }
+      .date-tabs { width: 100%; }
+      .date-tabs button { flex: 1; padding-right: 7px; padding-left: 7px; }
+      .toolbar { align-items: start; flex-direction: column; gap: 13px; }
+      .categories { gap: 6px; }
+      .category { padding: 8px 9px; font-size: 9px; }
+      .sort-wrap { align-self: end; }
+      .event-grid { grid-template-columns: 1fr; gap: 23px; }
+      .card-image { aspect-ratio: 1.62; }
+      .event-card h3 { font-size: 21px; }
+      .events-section { padding-bottom: 49px; }
+      footer .shell { flex-direction: column; gap: 5px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <a class="brand" href="#top" aria-label="Happenstance home"><span class="brand-mark" aria-hidden="true">h.</span>happenstance</a>
+      <button class="location" id="locationButton" type="button" aria-label="Change location, currently New York"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>New York, NY <span aria-hidden="true">⌄</span></button>
+      <nav class="nav" aria-label="Main navigation"><a href="#events">Explore</a><a href="#events">Saved</a><a class="submit" href="mailto:hello@happenstance.events?subject=Submit%20an%20event">+ Submit an event</a></nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <div class="eyebrow"><i aria-hidden="true"></i> The city is in a good mood</div>
+          <h1 id="hero-title">Find your next <em>good thing.</em></h1>
+          <p class="hero-copy">Little plans, big nights, and the lovely in-between. Find something worth leaving the house for.</p>
+          <label class="hero-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><input id="searchInput" type="search" placeholder="Try “live music” or “Brooklyn”" aria-label="Search events"></label>
+        </div>
+        <div class="hero-visual">
+          <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1400&q=85" alt="A crowd enjoying a live outdoor concert beneath colorful lights">
+          <div class="feature-note"><div><small>This week in the city</small><strong>Make room for a little magic.</strong></div><span class="date-stamp" id="featuredDate">COMING UP</span></div>
+        </div>
+      </section>
+
+      <section class="events-section" id="events" aria-labelledby="events-title">
+        <div class="section-top">
+          <div><h2 id="events-title">On the calendar</h2><p id="resultCount" aria-live="polite">A few good reasons to make plans.</p></div>
+          <div class="date-tabs" role="group" aria-label="Filter by date"><button type="button" data-date="all" aria-pressed="true">Anytime</button><button type="button" data-date="today" aria-pressed="false">Today</button><button type="button" data-date="weekend" aria-pressed="false">This weekend</button></div>
+        </div>
+        <div class="toolbar">
+          <div class="categories" role="group" aria-label="Filter by category">
+            <button class="category" type="button" data-category="All" aria-pressed="true">Everything</button>
+            <button class="category" type="button" data-category="Music" aria-pressed="false"><span class="dot"></span>Music</button>
+            <button class="category" type="button" data-category="Art" aria-pressed="false"><span class="dot"></span>Art & culture</button>
+            <button class="category" type="button" data-category="Food" aria-pressed="false"><span class="dot"></span>Food & drink</button>
+            <button class="category" type="button" data-category="Outdoors" aria-pressed="false"><span class="dot"></span>Outdoors</button>
+          </div>
+          <label class="sort-wrap">Sort by <select id="sortSelect" aria-label="Sort events"><option value="soonest">Soonest</option><option value="price">Price: low to high</option></select></label>
+        </div>
+        <div class="event-grid" id="eventGrid" aria-live="polite"></div>
+      </section>
+    </main>
+  </div>
+  <footer><div class="shell"><span>happenstance © 2026</span><span>A little more living, a little less scrolling.</span></div></footer>
+
+  <dialog id="eventDialog" aria-labelledby="dialogTitle">
+    <img class="dialog-image" id="dialogImage" src="" alt="">
+    <div class="dialog-content"><div class="event-meta" id="dialogMeta"></div><h2 id="dialogTitle"></h2><p id="dialogDescription"></p><p id="dialogVenue"></p><div class="dialog-actions"><button id="rsvpButton" type="button">I'm in — save my spot</button><button class="close-dialog" id="closeDialog" type="button">Close</button></div></div>
+  </dialog>
+  <div id="toastRegion" aria-live="polite" aria-atomic="true"></div>
+
+  <script>
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const atOffset = (days) => {
+      const date = new Date(today);
+      date.setDate(date.getDate() + days);
+      return date;
+    };
+    const events = [
+      { id: 1, title: "Rooftop Sessions: Golden Hour", category: "Music", date: atOffset(0), time: "6:30 PM", venue: "Elsewhere Rooftop · Brooklyn", price: 18, priceLabel: "$18", image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=900&q=80", alt: "A lively rooftop concert with a crowd and stage lights", description: "An open-air evening of local DJs, good sound, and the last of the daylight. Come early for a spot near the skyline." },
+      { id: 2, title: "The Sunday Table", category: "Food", date: atOffset(3), time: "11:00 AM", venue: "Sunday in Brooklyn · Williamsburg", price: 0, priceLabel: "Free", image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80", alt: "A warm, bustling neighborhood restaurant ready for guests", description: "A long-table neighborhood brunch with pastries from local bakers and plenty of time to meet someone new. Walk-ins welcome." },
+      { id: 3, title: "Soft Focus: New York After Dark", category: "Art", date: atOffset(2), time: "7:00 PM", venue: "The Greenpoint Gallery · Brooklyn", price: 12, priceLabel: "$12", image: "https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=900&q=80", alt: "Colorful contemporary art on a gallery wall", description: "A late-night exhibition of photographs, paintings, and small moments from the city. Opening reception includes a complimentary drink." },
+      { id: 4, title: "A Very Good Jazz Night", category: "Music", date: atOffset(3), time: "8:00 PM", venue: "Bar LunÀtico · Bed-Stuy", price: 22, priceLabel: "$22", image: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=900&q=80", alt: "A jazz musician playing saxophone under stage lights", description: "A close-up set from three musicians making something up as they go. Small room, big sound; doors open at 7:30." },
+      { id: 5, title: "Sunday Market, Slowly", category: "Outdoors", date: atOffset(3), time: "10:00 AM", venue: "McCarren Park · Brooklyn", price: 0, priceLabel: "Free", image: "https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=900&q=80", alt: "Fresh produce and flowers at an outdoor market", description: "A morning wander through the neighborhood's best makers, growers, and coffee carts. Bring a tote and take your time." },
+      { id: 6, title: "Clay, Coffee & Company", category: "Art", date: atOffset(5), time: "2:00 PM", venue: "Still Life Studio · Lower East Side", price: 35, priceLabel: "$35", image: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=900&q=80", alt: "Handmade ceramic bowls and pottery on a studio table", description: "A no-pressure hand-building workshop for curious beginners. All materials, a warm drink, and your finished piece are included." }
+    ];
+    const grid = document.getElementById("eventGrid");
+    const searchInput = document.getElementById("searchInput");
+    const sortSelect = document.getElementById("sortSelect");
+    const saved = new Set();
+    let activeCategory = "All";
+    let activeDate = "all";
+
+    const dateLabel = (date) => new Intl.DateTimeFormat("en-US", { weekday: "short", month: "short", day: "numeric" }).format(date);
+    const isThisWeekend = (date) => {
+      const weekday = today.getDay();
+      const daysUntilSaturday = weekday === 0 ? 0 : (6 - weekday + 7) % 7;
+      const weekendStart = atOffset(daysUntilSaturday);
+      const weekendEnd = atOffset(weekday === 0 ? 0 : daysUntilSaturday + 1);
+      return date >= weekendStart && date <= weekendEnd;
+    };
+    const shortDate = (date) => {
+      if (date.getTime() === today.getTime()) return "Today";
+      const tomorrow = atOffset(1);
+      if (date.getTime() === tomorrow.getTime()) return "Tomorrow";
+      return new Intl.DateTimeFormat("en-US", { weekday: "short", month: "short", day: "numeric" }).format(date);
+    };
+    const iconArrow = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3.5 10h12m-5-5 5 5-5 5"/></svg>';
+    const heartIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.8c0 4.3-8.8 10-8.8 10s-8.8-5.7-8.8-10a4.6 4.6 0 0 1 8.8-1.8 4.6 4.6 0 0 1 8.8 1.8Z"/></svg>';
+
+    function renderEvents() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visible = events.filter((event) => {
+        const matchesCategory = activeCategory === "All" || event.category === activeCategory;
+        const text = `${event.title} ${event.category} ${event.venue} ${event.description}`.toLowerCase();
+        const matchesSearch = !query || text.includes(query);
+        const daysAway = Math.round((event.date - today) / 86400000);
+        const matchesDate = activeDate === "all" || (activeDate === "today" && daysAway === 0) || (activeDate === "weekend" && isThisWeekend(event.date));
+        return matchesCategory && matchesSearch && matchesDate;
+      });
+      if (sortSelect.value === "price") visible = [...visible].sort((a, b) => a.price - b.price || a.date - b.date);
+      else visible = [...visible].sort((a, b) => a.date - b.date);
+      document.getElementById("resultCount").textContent = `${visible.length} ${visible.length === 1 ? "good thing" : "good things"} to make plans for.`;
+      if (!visible.length) {
+        grid.innerHTML = '<div class="empty-state"><strong>No plans just yet.</strong>Try another search or category.</div>';
+        return;
+      }
+      grid.innerHTML = visible.map((event, index) => `
+        <article class="event-card" style="animation-delay:${Math.min(index * 55, 275)}ms">
+          <div class="card-image"><img src="${event.image}" alt="${event.alt}" loading="lazy"><span class="event-tag">${event.category}</span><button class="save-button" type="button" data-save="${event.id}" aria-label="${saved.has(event.id) ? "Remove saved event" : "Save event"}" aria-pressed="${saved.has(event.id)}">${heartIcon}</button></div>
+          <div class="card-body"><div class="event-meta"><span>${shortDate(event.date)}</span><span class="separator"></span><span>${event.time}</span></div><h3>${event.title}</h3><p class="venue">${event.venue}</p><div class="card-bottom"><span class="price">${event.priceLabel}</span><button class="details-button" type="button" data-details="${event.id}">The details ${iconArrow}</button></div></div>
+        </article>`).join("");
+    }
+
+    function showToast(message) {
+      const region = document.getElementById("toastRegion");
+      region.innerHTML = `<div class="toast" role="status">${message}</div>`;
+      window.setTimeout(() => { region.innerHTML = ""; }, 2600);
+    }
+
+    grid.addEventListener("click", (event) => {
+      const saveButton = event.target.closest("[data-save]");
+      if (saveButton) {
+        const id = Number(saveButton.dataset.save);
+        if (saved.has(id)) saved.delete(id); else saved.add(id);
+        renderEvents();
+        showToast(saved.has(id) ? "Saved for later." : "Removed from saved events.");
+        return;
+      }
+      const detailsButton = event.target.closest("[data-details]");
+      if (detailsButton) {
+        const item = events.find((entry) => entry.id === Number(detailsButton.dataset.details));
+        document.getElementById("dialogImage").src = item.image;
+        document.getElementById("dialogImage").alt = item.alt;
+        document.getElementById("dialogMeta").textContent = `${dateLabel(item.date)} · ${item.time} · ${item.priceLabel}`;
+        document.getElementById("dialogTitle").textContent = item.title;
+        document.getElementById("dialogDescription").textContent = item.description;
+        document.getElementById("dialogVenue").textContent = item.venue;
+        document.getElementById("rsvpButton").dataset.eventId = item.id;
+        document.getElementById("eventDialog").showModal();
+      }
+    });
+
+    document.querySelectorAll("[data-category]").forEach((button) => button.addEventListener("click", () => {
+      activeCategory = button.dataset.category;
+      document.querySelectorAll("[data-category]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+      renderEvents();
+    }));
+    document.querySelectorAll("[data-date]").forEach((button) => button.addEventListener("click", () => {
+      activeDate = button.dataset.date;
+      document.querySelectorAll("[data-date]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+      renderEvents();
+    }));
+    searchInput.addEventListener("input", renderEvents);
+    sortSelect.addEventListener("change", renderEvents);
+    document.getElementById("closeDialog").addEventListener("click", () => document.getElementById("eventDialog").close());
+    document.getElementById("eventDialog").addEventListener("click", (event) => {
+      if (event.target === event.currentTarget) event.currentTarget.close();
+    });
+    document.getElementById("rsvpButton").addEventListener("click", (event) => {
+      const item = events.find((entry) => entry.id === Number(event.currentTarget.dataset.eventId));
+      document.getElementById("eventDialog").close();
+      showToast(`You're on the list for ${item.title}.`);
+    });
+    document.getElementById("locationButton").addEventListener("click", () => showToast("More cities are on their way."));
+    document.getElementById("featuredDate").textContent = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(atOffset(0)) + " — " + new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(atOffset(6));
+    renderEvents();
+  </script>
+</body>
+</html>
